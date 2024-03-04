@@ -308,12 +308,15 @@ def run_publisher_shape_main(
                 [
                     'on_publication_matched()', # index = 0
                     pexpect.TIMEOUT, # index = 1
-                    'on_offered_incompatible_qos' # index = 2
+                    'on_offered_incompatible_qos', # index = 2
+                    'failed to create datawriter' # index = 3
                 ],
                 timeout
             )
             if index == 1:
                 produced_code[produced_code_index] = ReturnCode.READER_NOT_MATCHED
+            elif index == 3:
+                produced_code[produced_code_index] = ReturnCode.WRITER_NOT_CREATED
             elif index == 2:
                 produced_code[produced_code_index] = ReturnCode.INCOMPATIBLE_QOS
             elif index == 0:
