@@ -114,7 +114,7 @@ def run_subscriber_shape_main(
             [
                 'Create reader for topic:', # index = 0
                 pexpect.TIMEOUT, # index = 1
-                'failed to create content filtered topic' # index = 2
+                'failed to create content filtered topic', # index = 2
             ],
             timeout
         )
@@ -137,13 +137,16 @@ def run_subscriber_shape_main(
                     'on_subscription_matched()', # index = 0
                     pexpect.TIMEOUT, # index = 1
                     'on_requested_incompatible_qos()', # index = 2
-                    'on_liveliness_changed()' # index = 3
+                    'on_liveliness_changed()', # index = 3
+                    'failed to create datareader' # index = 4
                 ],
                 timeout
             )
 
             if index == 1:
                 produced_code[produced_code_index] = ReturnCode.WRITER_NOT_MATCHED
+            elif index == 4:
+                produced_code[produced_code_index] = ReturnCode.READER_NOT_CREATED
             elif index == 2:
                 produced_code[produced_code_index] = ReturnCode.INCOMPATIBLE_QOS
             # This case handles when on_liveliness_changed() happens before
