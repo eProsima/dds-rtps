@@ -603,13 +603,13 @@ public:
 class DPListener : public DomainParticipantListener
 {
 public:
-    void on_inconsistent_topic         (Topic *topic,  const InconsistentTopicStatus &) {
+    void on_inconsistent_topic         (Topic *topic,  const InconsistentTopicStatus &) override {
         const char *topic_name = topic->get_name() NAME_ACCESSOR;
         const char *type_name  = topic->get_type_name() NAME_ACCESSOR;
         printf("%s() topic: '%s'  type: '%s'\n", __FUNCTION__, topic_name, type_name);
     }
 
-    void on_offered_incompatible_qos(DataWriter *dw,  const OfferedIncompatibleQosStatus & status) {
+    void on_offered_incompatible_qos(DataWriter *dw,  const OfferedIncompatibleQosStatus & status) override {
         Topic      *topic       = dw->get_topic( );
         const char *topic_name  = topic->get_name() NAME_ACCESSOR;
         const char *type_name   = topic->get_type_name() NAME_ACCESSOR;
@@ -621,7 +621,7 @@ public:
                 policy_name );
     }
 
-    void on_publication_matched (DataWriter *dw, const PublicationMatchedStatus & status) {
+    void on_publication_matched (DataWriter *dw, const PublicationMatchedStatus & status) override {
         Topic      *topic      = dw->get_topic( );
         const char *topic_name = topic->get_name() NAME_ACCESSOR;
         const char *type_name  = topic->get_type_name() NAME_ACCESSOR;
@@ -629,7 +629,7 @@ public:
                 topic_name, type_name, status.current_count, status.current_count_change);
     }
 
-    void on_offered_deadline_missed (DataWriter *dw, const OfferedDeadlineMissedStatus & status) {
+    void on_offered_deadline_missed (DataWriter *dw, const OfferedDeadlineMissedStatus & status) override {
         Topic      *topic      = dw->get_topic( );
         const char *topic_name = topic->get_name() NAME_ACCESSOR;
         const char *type_name  = topic->get_type_name() NAME_ACCESSOR;
@@ -637,7 +637,7 @@ public:
                 topic_name, type_name, status.total_count, status.total_count_change);
     }
 
-    void on_liveliness_lost (DataWriter *dw, const LivelinessLostStatus & status) {
+    void on_liveliness_lost (DataWriter *dw, const LivelinessLostStatus & status) override {
         Topic      *topic      = dw->get_topic( );
         const char *topic_name = topic->get_name() NAME_ACCESSOR;
         const char *type_name  = topic->get_type_name() NAME_ACCESSOR;
@@ -645,7 +645,7 @@ public:
                 topic_name, type_name, status.total_count, status.total_count_change);
     }
 
-    void on_requested_incompatible_qos (DataReader *dr, const RequestedIncompatibleQosStatus & status) {
+    void on_requested_incompatible_qos (DataReader *dr, const RequestedIncompatibleQosStatus & status) override {
         TopicDescription *td         = GET_TOPIC_DESCRIPTION(dr);
         const char       *topic_name = td->get_name() NAME_ACCESSOR;
         const char       *type_name  = td->get_type_name() NAME_ACCESSOR;
@@ -656,7 +656,7 @@ public:
                 policy_name);
     }
 
-    void on_subscription_matched (DataReader *dr, const SubscriptionMatchedStatus & status) {
+    void on_subscription_matched (DataReader *dr, const SubscriptionMatchedStatus & status) override {
         TopicDescription *td         = GET_TOPIC_DESCRIPTION(dr);
         const char       *topic_name = td->get_name() NAME_ACCESSOR;
         const char       *type_name  = td->get_type_name() NAME_ACCESSOR;
@@ -664,7 +664,7 @@ public:
                 topic_name, type_name, status.current_count, status.current_count_change);
     }
 
-    void on_requested_deadline_missed (DataReader *dr, const RequestedDeadlineMissedStatus & status) {
+    void on_requested_deadline_missed (DataReader *dr, const RequestedDeadlineMissedStatus & status) override {
         TopicDescription *td         = GET_TOPIC_DESCRIPTION(dr);
         const char       *topic_name = td->get_name() NAME_ACCESSOR;
         const char       *type_name  = td->get_type_name() NAME_ACCESSOR;
@@ -672,7 +672,7 @@ public:
                 topic_name, type_name, status.total_count, status.total_count_change);
     }
 
-    void on_liveliness_changed (DataReader *dr, const LivelinessChangedStatus & status) {
+    void on_liveliness_changed (DataReader *dr, const LivelinessChangedStatus & status) override {
         TopicDescription *td         = GET_TOPIC_DESCRIPTION(dr);
         const char       *topic_name = td->get_name() NAME_ACCESSOR;
         const char       *type_name  = td->get_type_name() NAME_ACCESSOR;
@@ -680,10 +680,10 @@ public:
                 topic_name, type_name, status.alive_count, status.not_alive_count);
     }
 
-  void on_sample_rejected (DataReader *, const SampleRejectedStatus &) {}
-  void on_data_available (DataReader *) {}
-  void on_sample_lost (DataReader *, const SampleLostStatus &) {}
-  void on_data_on_readers (Subscriber *) {}
+  void on_sample_rejected (DataReader *, const SampleRejectedStatus &) override {}
+  void on_data_available (DataReader *) override {}
+  void on_sample_lost (DataReader *, const SampleLostStatus &) override {}
+  void on_data_on_readers (Subscriber *) override {}
 };
 
 
