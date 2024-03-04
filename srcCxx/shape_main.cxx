@@ -603,7 +603,11 @@ public:
 class DPListener : public DomainParticipantListener
 {
 public:
+#if  defined(EPROSIMA_FAST_DDS)
+    void on_inconsistent_topic         (Topic *topic,  InconsistentTopicStatus) override {
+#else
     void on_inconsistent_topic         (Topic *topic,  const InconsistentTopicStatus &) override {
+#endif
         const char *topic_name = topic->get_name() NAME_ACCESSOR;
         const char *type_name  = topic->get_type_name() NAME_ACCESSOR;
         printf("%s() topic: '%s'  type: '%s'\n", __FUNCTION__, topic_name, type_name);
