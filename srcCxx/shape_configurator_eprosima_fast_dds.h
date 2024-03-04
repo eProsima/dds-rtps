@@ -1,6 +1,7 @@
 #include <fastdds/dds/domain/DomainParticipant.hpp>
 #include <fastdds/dds/domain/DomainParticipantFactory.hpp>
 #include <fastdds/dds/domain/DomainParticipantListener.hpp>
+#include <fastdds/dds/log/Log.hpp>
 #include <fastdds/dds/publisher/Publisher.hpp>
 #include <fastdds/dds/publisher/DataWriter.hpp>
 #include <fastdds/dds/publisher/DataWriterListener.hpp>
@@ -15,6 +16,7 @@
 #include "GeneratedCode/shapePubSubTypes.h"
 #include "GeneratedCode/shapeTypeObject.h"
 
+#define CONFIGURE_PARTICIPANT_FACTORY global_fastdds_configuration();
 #define LISTENER_STATUS_MASK_ALL StatusMask::all()
 #define LISTENER_STATUS_MASK_NONE StatusMask::none()
 #define REGISTER_TYPE registershapeTypes(); TypeSupport ts(new ShapeTypePubSubType()); ts->auto_fill_type_object(false); ts->auto_fill_type_information(false); ts.register_type
@@ -60,4 +62,9 @@ const char* get_qos_policy_name(DDS::QosPolicyId_t policy_id)
   case DDS::DURABILITYSERVICE_QOS_POLICY_ID: return "DURABILITYSERVICE";
   default: return "Unknown";
   }
+}
+
+void global_fastdds_configuration()
+{
+  eprosima::fastdds::dds::Log::ClearConsumers();
 }
