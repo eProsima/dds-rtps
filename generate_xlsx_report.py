@@ -61,7 +61,7 @@ class ProductUtils:
             return 'Kongsberg'
         elif 'fastdds' in product.lower():
             return 'eProsima'
-        elif 'dust_dds' in product.lower():
+        elif 'dust' in product.lower():
             return 'S2E Software Systems'
         else:
             raise RuntimeError('Impossible to get company name: ' + product)
