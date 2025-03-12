@@ -1279,7 +1279,7 @@ public:
         // Create different DataWriters (depending on the number of entities)
         // The DWs are attached to the same array index of the topics.
         for (unsigned int i = 0; i < options->num_topics; ++i) {
-            printf("Create writer for topic: %s color: %s\n", topics[i]->get_name()NAME_ACCESSOR, options->color );
+            printf("Create writer for topic: %s color: %s\n", topics[i]->get_name() NAME_ACCESSOR, options->color );
             dws[i] = dynamic_cast<ShapeTypeDataWriter *>(pub->create_datawriter( topics[i], dw_qos, NULL, LISTENER_STATUS_MASK_NONE));
             if (dws[i] == NULL) {
                 logger.log_message("failed to create datawriter[" + std::to_string(i) + "] topic: " + topics[i]->get_name(), Verbosity::ERROR);
@@ -1466,7 +1466,7 @@ public:
                     return false;
                 }
 
-                printf("Create reader for topic: %s color: %s\n", cft->get_name(), options->color );
+                printf("Create reader for topic: %s color: %s\n", cft->get_name() NAME_ACCESSOR, options->color );
                 drs[i] = dynamic_cast<ShapeTypeDataReader *>(sub->create_datareader(cft, dr_qos, NULL, LISTENER_STATUS_MASK_NONE));
                 if (drs[i] == NULL) {
                     logger.log_message("failed to create datareader[" + std::to_string(i) + "] topic: " + topics[i]->get_name(), Verbosity::ERROR);
@@ -1477,7 +1477,7 @@ public:
             // Create different DataReaders (depending on the number of entities)
             // The DRs are attached to the same array index of the topics.
             for (unsigned int i = 0; i < options->num_topics; ++i) {
-                printf("Create reader for topic: %s\n", topics[i]->get_name()NAME_ACCESSOR);
+                printf("Create reader for topic: %s\n", topics[i]->get_name() NAME_ACCESSOR);
                 drs[i] = dynamic_cast<ShapeTypeDataReader *>(sub->create_datareader(topics[i], dr_qos, NULL, LISTENER_STATUS_MASK_NONE));
                 if (drs[i] == NULL) {
                     logger.log_message("failed to create datareader[" + std::to_string(i) + "] topic: " + topics[i]->get_name(), Verbosity::ERROR);
@@ -1537,6 +1537,7 @@ public:
             return false;
         }
 #if  defined(EPROSIMA_FAST_DDS)
+        // TODO: Remove when Fast DDS supports `get_key_value()`
         std::map<InstanceHandle_t, std::string> instance_handle_color;
 #endif
 
@@ -1682,7 +1683,7 @@ public:
                                 ShapeType shape_key;
                                 shape_initialize_w_color(shape_key, NULL);
 #if defined(EPROSIMA_FAST_DDS)
-                                shape_key.color FIELD_ACCESSOR = instance_handle_color[sample_info->instance_handle]NAME_ACCESSOR;
+                                shape_key.color FIELD_ACCESSOR = instance_handle_color[sample_info->instance_handle] NAME_ACCESSOR;
 #else
                                 drs[i]->get_key_value(shape_key, sample_info->instance_handle);
 #endif
